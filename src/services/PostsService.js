@@ -7,6 +7,15 @@ class PostsService {
     async getPosts() {
         const res = await api.get('api/posts')
         AppState.posts = res.data.posts.map(p => new Post(p))
+        logger.log(res.data)
+        AppState.page = res.data
+    }
+
+    async getNewPage(pageUrl) {
+        const res = await api.get(pageUrl)
+        logger.log(res.data)
+        AppState.page = res.data
+        AppState.posts = res.data.posts.map(p => new Post(p))
     }
 }
 

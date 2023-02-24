@@ -3,8 +3,8 @@
     <Navbar />
   </header>
   <main>
-    <div class="container">
-      <div class="row">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
         <div class="col-3">
           <!-- who is logged in -->
         </div>
@@ -13,6 +13,11 @@
         </div>
         <div class="col-3">
           <!-- ads -->
+          <div class="sticky-top">
+            <div class="bg-secondary text-center my-4 p-3 ad" v-for="ad in ads">
+              <AdCard :ad="ad"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -20,17 +25,31 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { AppState } from './AppState'
+import {adsService} from './services/AdsService'
 import Navbar from './components/Navbar.vue'
+import Pop from './utils/Pop'
+import AdCard from './components/AdCard.vue'
 
 export default {
   setup() {
+    async function getAds() {
+      try {
+        await adsService.getAds()
+      } catch (error) {
+        Pop.error(error, '[getting ads]')
+      }
+    }
+
+    onMounted(() => {
+      getAds()
+    })
     return {
-      appState: computed(() => AppState)
+      ads: computed(() => AppState.ads)
     }
   },
-  components: { Navbar }
+  components: { Navbar, AdCard }
 }
 </script>
 <style lang="scss">

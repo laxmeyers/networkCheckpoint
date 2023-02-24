@@ -1,24 +1,32 @@
 <template>
     <div class="col-12">
-      <div class="card">
-        <div class="card-header d-flex">
-          <img class="post-profile-picture rounded-circle" :src="post.creator.picture" alt="">
-          <div>
-            <h1 class="fs-5">{{ post.creator.name }}</h1>
-            <p>{{ post.createdAt }}</p>
-          </div>
+        <div class="card elevation-4">
+            <div class="card-header d-flex">
+                <span >
+                    <router-link :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
+                        <img class="post-profile-picture rounded-circle elevation-2" :src="post.creator.picture" alt="">
+                    </router-link>
+                </span>
+                <span v-if="post.creator.graduated">
+                    <i class="mdi mdi-school"></i>
+                </span>
+                <div>
+                    <h1 class="fs-5">{{ post.creator.name }}</h1>
+                    <p>{{ post.createdAt }}</p>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ post.body }}
+                <div class="my-2" v-if="post.img">
+                    <img class="img-fluid w-100" :src="post.img" alt="picture">
+                </div>
+                <h5><i class="mdi mdi-heart-outline"></i> {{ post.likes.length }}</h5>
+            </div>
+            <div class="card-footer d-flex justify-content-between" v-if="post.creatorId == account.id">
+                <button class="btn btn-info">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </div>
         </div>
-        <div class="card-body">
-          {{ post.body }}
-          <div class="my-2">
-            <img class="img-fluid w-100" :src="post.img" alt="">
-          </div>
-        </div>
-        <div class="card-footer d-flex justify-content-between" v-if="post.creatorId == account.id">
-            <button class="btn btn-info">Edit</button>
-            <button class="btn btn-danger">Delete</button>
-        </div>
-      </div>
     </div>
 </template>
 
@@ -26,16 +34,15 @@
 <script>
 import { computed } from 'vue';
 import { AppState } from '../AppState';
-import { Account } from '../models/Account';
 import { Post } from '../models/Post';
 
 export default {
     props: {
         post: { type: Post, required: true }
     },
-    setup(){
+    setup() {
         return {
-            account: computed(()=> AppState.account)
+            account: computed(() => AppState.account)
         }
     }
 }
@@ -43,9 +50,9 @@ export default {
 
 
 <style lang="scss" scoped>
-.post-profile-picture{
-  height: 10vh;
-  width: 10vh;
-  object-fit: cover;
+.post-profile-picture {
+    height: 10vh;
+    width: 10vh;
+    object-fit: cover;
 }
 </style>
