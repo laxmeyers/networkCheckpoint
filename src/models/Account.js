@@ -11,5 +11,6 @@ export class Account {
     this.linkedin = data.linkedin
     this.github = data.github
     this.resume = data.resume
+    this.coverImg = data.coverImg
   }
 }

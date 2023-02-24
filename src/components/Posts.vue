@@ -20,7 +20,7 @@
                 <div class="my-2" v-if="post.img">
                     <img class="img-fluid w-100" :src="post.img" alt="picture">
                 </div>
-                <h5><i class="mdi mdi-heart-outline"></i> {{ post.likes.length }}</h5>
+                <h5><i class="mdi mdi-heart text-danger selectable" @click="addLike()"></i> {{ post.likes.length }}</h5>
             </div>
             <div class="card-footer d-flex justify-content-between" v-if="post.creatorId == account.id">
                 <button class="btn btn-info">Edit</button>
@@ -35,14 +35,24 @@
 import { computed } from 'vue';
 import { AppState } from '../AppState';
 import { Post } from '../models/Post';
+import { postsService } from '../services/PostsService';
+import Pop from '../utils/Pop';
 
 export default {
     props: {
         post: { type: Post, required: true }
     },
-    setup() {
+    setup(props) {
         return {
-            account: computed(() => AppState.account)
+            account: computed(() => AppState.account),
+
+            async addLike() {
+                try {
+                    await postsService.addLike(props.post.id)
+                } catch (error) {
+                    Pop.error(error, '[adding or removing like]')
+                }
+            }
         }
     }
 }
