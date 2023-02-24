@@ -3,7 +3,19 @@
     <Navbar />
   </header>
   <main>
-    <router-view />
+    <div class="container">
+      <div class="row">
+        <div class="col-3">
+          <!-- who is logged in -->
+        </div>
+        <div class="col-6">
+          <router-view />
+        </div>
+        <div class="col-3">
+          <!-- ads -->
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
