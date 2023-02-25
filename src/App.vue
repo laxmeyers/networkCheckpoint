@@ -9,6 +9,9 @@
           <!-- who is logged in -->
         </div>
         <div class="col-6">
+          <div class="d-flex justify-content-center">
+            <SearchForm/>
+          </div>
           <router-view />
         </div>
         <div class="col-3">
@@ -31,6 +34,7 @@ import {adsService} from './services/AdsService'
 import Navbar from './components/Navbar.vue'
 import Pop from './utils/Pop'
 import AdCard from './components/AdCard.vue'
+import SearchForm from './components/SearchForm.vue'
 
 export default {
   setup() {
@@ -49,7 +53,7 @@ export default {
       ads: computed(() => AppState.ads)
     }
   },
-  components: { Navbar, AdCard }
+  components: { Navbar, AdCard, SearchForm }
 }
 </script>
 <style lang="scss">

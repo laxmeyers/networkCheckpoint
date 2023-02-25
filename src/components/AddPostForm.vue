@@ -26,6 +26,7 @@ export default {
             async makePost() {
                 try {
                     await postsService.makePost(editable.value)
+                    editable.value = {}
                 } catch (error) {
                     Pop.error(error, '[making post]')
                 }
