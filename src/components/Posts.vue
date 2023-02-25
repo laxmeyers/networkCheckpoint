@@ -24,7 +24,7 @@
             </div>
             <div class="card-footer d-flex justify-content-between" v-if="post.creatorId == account.id">
                 <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editPost" @click="setActivePost(post)">Edit</button>
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger" @click="destroyPost(post)">Delete</button>
             </div>
         </div>
     </div>
@@ -65,6 +65,16 @@ export default {
                     postsService.setActivePost(post)
                 } catch (error) {
                     Pop.error(error, '[setting active post]')
+                }
+            },
+
+            async destroyPost(post) {
+                try {
+                    if (await Pop.confirm('are you sure?')) {
+                        await postsService.destroyPost(post)
+                    }
+                } catch (error) {
+                    Pop.error(error, '[deleting post]')
                 }
             }
         };

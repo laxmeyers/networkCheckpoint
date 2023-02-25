@@ -45,6 +45,19 @@ class PostsService {
         AppState.activePost = AppState.posts.findIndex(p => p.id == post.id)
         
     }
+
+    async editPost(formData) {
+        let post = AppState.posts.findIndex(p => p.id == AppState.posts[AppState.activePost].id)
+        let postObject = AppState.posts[post]
+        const res = await api.put('api/posts/' + postObject.id, formData)
+        AppState.posts.splice(post, 1, new Post(res.data))
+    }
+
+    async destroyPost(post) {
+        let postRemove = AppState.posts.findIndex(p => p.id == AppState.posts[AppState.activePost].id)
+        const res = await api.delete('api/posts/' + post.id)
+        AppState.posts.splice(postRemove, 1)
+    }
 }
 
 export const postsService = new PostsService()

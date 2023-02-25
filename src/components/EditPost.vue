@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="makePost()">
+    <form @submit.prevent="editPost()">
         <div class="mb-3">
             <label for="body" class="form-label">Text</label>
             <input v-model="editable.body" type="text" class="form-control" id="body" aria-describedby="body">
@@ -24,9 +24,9 @@ export default {
         const editable = ref(AppState.posts[AppState.activePost])
         return {
             editable,
-            async makePost() {
+            async editPost() {
                 try {
-                    await postsService.makePost(editable.value)
+                    await postsService.editPost(editable.value)
                 } catch (error) {
                     Pop.error(error, '[making post]')
                 }
