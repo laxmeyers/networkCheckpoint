@@ -34,6 +34,17 @@ class PostsService {
             }
         }
     }
+
+    async makePost(formData) {
+        const res = await api.post('api/posts', formData)
+        logger.log(res.data)
+        AppState.posts.push(new Post(res.data))
+    }
+
+    setActivePost(post) {
+        AppState.activePost = AppState.posts.findIndex(p => p.id == post.id)
+        
+    }
 }
 
 export const postsService = new PostsService()

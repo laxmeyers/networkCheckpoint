@@ -10,6 +10,8 @@ export const AppState = reactive({
   posts: [],
   
   ads: [],
+
+  activePost: 0,
   
   /** @type {import('./models/Account.js').Account} */
   profile: {},

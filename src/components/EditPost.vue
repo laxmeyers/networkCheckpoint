@@ -6,7 +6,7 @@
         </div>
         <div class="mb-3">
             <label for="imgUrl" class="form-label">image</label>
-            <input v-model="editable.imgUrl" type="url" class="form-control" id="imgUrl">
+            <input v-model="editable.img" type="url" class="form-control" id="imgUrl">
         </div>
         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
     </form>
@@ -14,13 +14,14 @@
 
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { AppState } from '../AppState';
 import { postsService } from '../services/PostsService';
 import Pop from '../utils/Pop';
 
 export default {
     setup() {
-        const editable = ref({})
+        const editable = ref(AppState.posts[AppState.activePost])
         return {
             editable,
             async makePost() {

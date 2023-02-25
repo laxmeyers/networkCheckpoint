@@ -23,11 +23,15 @@
                 <h5><i class="mdi mdi-heart text-danger selectable" @click="addLike()"></i> {{ post.likes.length }}</h5>
             </div>
             <div class="card-footer d-flex justify-content-between" v-if="post.creatorId == account.id">
-                <button class="btn btn-info">Edit</button>
+                <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editPost" @click="setActivePost(post)">Edit</button>
                 <button class="btn btn-danger">Delete</button>
             </div>
         </div>
     </div>
+
+    <Modal id="editPost">
+        <EditPost/>
+    </Modal>
 </template>
 
 
@@ -37,6 +41,8 @@ import { AppState } from '../AppState';
 import { Post } from '../models/Post';
 import { postsService } from '../services/PostsService';
 import Pop from '../utils/Pop';
+import EditPost from './EditPost.vue';
+import Modal from './Modal.vue';
 
 export default {
     props: {
@@ -45,16 +51,25 @@ export default {
     setup(props) {
         return {
             account: computed(() => AppState.account),
-
             async addLike() {
                 try {
-                    await postsService.addLike(props.post.id)
+                    await postsService.addLike(props.post.id);
+                }
+                catch (error) {
+                    Pop.error(error, "[adding or removing like]");
+                }
+            },
+
+            setActivePost(post) {
+                try {
+                    postsService.setActivePost(post)
                 } catch (error) {
-                    Pop.error(error, '[adding or removing like]')
+                    Pop.error(error, '[setting active post]')
                 }
             }
-        }
-    }
+        };
+    },
+    components: { Modal, EditPost }
 }
 </script>
 
