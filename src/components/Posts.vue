@@ -20,7 +20,7 @@
                 <div class="my-2" v-if="post.img">
                     <img class="img-fluid w-100" :src="post.img" alt="picture">
                 </div>
-                <h5><i class="mdi mdi-heart text-danger selectable" @click="addLike()"></i> {{ post.likes.length }}</h5>
+                <h5 v-if="account.id"><i class="mdi mdi-heart text-danger selectable" @click="addLike()"></i> {{ post.likes.length }}</h5>
             </div>
             <div class="card-footer d-flex justify-content-between" v-if="post.creatorId == account.id">
                 <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editPost" @click="setActivePost(post)">Edit</button>

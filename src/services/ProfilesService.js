@@ -20,6 +20,12 @@ class ProfilesService {
         AppState.posts = res.data.posts.map(p => new Post(p))
         AppState.page = res.data
     }
+
+    async searchResults(formData) {
+        const res = await api.get('api/profiles', { params: { query: formData.query } })
+        logger.log('profiles', res.data)
+        AppState.searchResults = res.data.map(p => new Account(p))
+    }
 }
 
 export const profilesService = new ProfilesService()

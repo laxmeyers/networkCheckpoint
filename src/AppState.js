@@ -18,5 +18,7 @@ export const AppState = reactive({
 
   page: null,
 
-  searchResults: []
+  searchResults: [],
+
+  home: 0
 })

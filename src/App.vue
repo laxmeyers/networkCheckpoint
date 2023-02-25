@@ -5,10 +5,7 @@
   <main>
     <div class="container-fluid">
       <div class="row justify-content-center">
-        <div class="col-3">
-          <!-- who is logged in -->
-        </div>
-        <div class="col-6">
+        <div class="col-6 m-auto">
           <div class="d-flex justify-content-center">
             <SearchForm/>
           </div>
@@ -16,7 +13,7 @@
         </div>
         <div class="col-3">
           <!-- ads -->
-          <div class="sticky-top">
+          <div>
             <div class="bg-secondary text-center my-4 p-3 ad" v-for="ad in ads">
               <AdCard :ad="ad"/>
             </div>

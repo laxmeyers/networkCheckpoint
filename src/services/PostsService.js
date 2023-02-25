@@ -10,6 +10,7 @@ class PostsService {
         AppState.posts = res.data.posts.map(p => new Post(p))
         logger.log(res.data)
         AppState.page = res.data
+        AppState.home = 0
     }
 
     async getNewPage(pageUrl) {
@@ -38,7 +39,7 @@ class PostsService {
     async makePost(formData) {
         const res = await api.post('api/posts', formData)
         logger.log(res.data)
-        AppState.posts.push(new Post(res.data))
+        AppState.posts.unshift(new Post(res.data))
     }
 
     setActivePost(post) {
@@ -54,9 +55,19 @@ class PostsService {
     }
 
     async destroyPost(post) {
+        logger.log('id', AppState.posts[AppState.activePost].id)
         let postRemove = AppState.posts.findIndex(p => p.id == AppState.posts[AppState.activePost].id)
         const res = await api.delete('api/posts/' + post.id)
+        logger.log('profile posts', AppState.posts[postRemove])
         AppState.posts.splice(postRemove, 1)
+        logger.log('profile posts 2', AppState.posts)
+    }
+
+    async searchResults(formData) {
+        AppState.home = 1
+        const res = await api.get('api/posts', { params: { query: formData.query } })
+        AppState.posts = res.data.posts.map(p => new Post(p))
+        logger.log('post', AppState.searchResults)
     }
 }
 
