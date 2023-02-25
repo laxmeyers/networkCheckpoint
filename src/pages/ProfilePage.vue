@@ -20,13 +20,13 @@
         <div class="card-body">
             <p v-if="profile.bio">{{ profile.bio }}</p>
             <ul class="text-start">
-                <li v-if="profile.github">github: {{ profile.github }}</li>
-                <li v-if="profile.linkedin">linkedin: {{ profile.linkedin }}</li>
-                <li v-if="profile.resume">resume: {{ profile.resume }}</li>
+                <li v-if="profile.github">github: <a :href="profile.github" target="_blank">{{ profile.github }}</a></li>
+                <li v-if="profile.linkedin">linkedin: <a :href="profile.linkedin" target="_blank">{{ profile.linkedin }}</a></li>
+                <li v-if="profile.resume">resume: <a :href="profile.resume" target="_blank">{{ profile.resume }}</a></li>
             </ul>
         </div>
         <div class="card-footer text-end d-flex justify-content-between"  v-if="account.id == profile.id">
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editForm">+</button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addPost">+</button>
             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editForm">Edit</button>
         </div>
     </div>
@@ -40,6 +40,9 @@
 
     <Modal v-if="account.id" id="editForm">
         <EditForm/> 
+    </Modal>
+    <Modal id="addPost">
+        <AddPostForm/>
     </Modal>
 </template>
 
