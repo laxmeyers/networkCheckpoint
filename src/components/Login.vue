@@ -19,6 +19,11 @@
                 Manage Account
               </div>
             </router-link>
+            <router-link v-if="account.id" :to="{ name: 'Profile', params: {profileId: account.id} }">
+              <div class="list-group-item dropdown-item list-group-item-action">
+                Manage Profile
+              </div>
+            </router-link>
             <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
               <i class="mdi mdi-logout"></i>
               logout
