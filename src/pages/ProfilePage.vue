@@ -17,11 +17,16 @@
                 <h5>{{ profile.class }}</h5>
             </span>
         </div>
-        <div class="card-body text-center">
-            <p>{{ profile.bio }}</p>
+        <div class="card-body">
+            <p v-if="profile.bio">{{ profile.bio }}</p>
+            <ul class="text-start">
+                <li v-if="profile.github">github: {{ profile.github }}</li>
+                <li v-if="profile.linkedin">linkedin: {{ profile.linkedin }}</li>
+                <li v-if="profile.resume">resume: {{ profile.resume }}</li>
+            </ul>
         </div>
-        <div class="card-footer" v-if="account.id != profile.id">
-            hello there
+        <div class="card-footer text-end" v-if="account.id == profile.id">
+            <button class="btn btn-warning">Edit</button>
         </div>
     </div>
     <div class="row my-4" v-for="post in posts">
