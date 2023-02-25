@@ -1,9 +1,8 @@
 <template>
-    {{ account }}
     <form @submit.prevent="handleForm()" v-if="account.id">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" v-model="editable.name" class="form-control" id="name" aria-describedby="Name">
+            <input type="text" v-model="editable.name" class="form-control" id="name" aria-describedby="Name" required>
         </div>
         <div class="mb-3">
             <label for="picture" class="form-label">Picture</label>
@@ -38,7 +37,7 @@
             <input type="checkbox" v-model="editable.graduated" :checked="editable.graduated" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Graduated</label>
         </div>
-        <button type="submit" class="btn btn-primary">Edit</button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Edit</button>
     </form>
 </template>
 
@@ -46,6 +45,7 @@
 <script>
 import { ref, computed } from 'vue';
 import { AppState } from '../AppState';
+import { accountService } from '../services/AccountService';
 import Pop from '../utils/Pop';
 
 export default {
@@ -56,7 +56,7 @@ export default {
             account: computed(() => AppState.account),
             async handleForm() {
                 try {
-
+                    await accountService.handleForm(editable.value)
                 } catch (error) {
                     Pop.error(error, '[handling form submission]')
                 }

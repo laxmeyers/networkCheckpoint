@@ -25,8 +25,9 @@
                 <li v-if="profile.resume">resume: {{ profile.resume }}</li>
             </ul>
         </div>
-        <div class="card-footer text-end" v-if="account.id == profile.id">
-            <button class="btn btn-warning">Edit</button>
+        <div class="card-footer text-end d-flex justify-content-between"  v-if="account.id == profile.id">
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editForm">+</button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editForm">Edit</button>
         </div>
     </div>
     <div class="row my-4" v-for="post in posts">
@@ -36,6 +37,10 @@
         <button class="btn btn-primary" :disabled="!page.newer" @click="getNewPage(page.newer)">newer</button>
         <button class="btn btn-primary" :disabled="!page.older" @click="getNewPage(page.older)">older</button>
     </div>
+
+    <Modal v-if="account.id" id="editForm">
+        <EditForm/> 
+    </Modal>
 </template>
 
 
@@ -46,38 +51,41 @@ import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
 import { onMounted, computed } from 'vue';
 import { postsService } from '../services/PostsService';
+import Modal from '../components/Modal.vue';
+import EditForm from '../components/EditForm.vue';
 
 export default {
     setup() {
-        const route = useRoute()
+        const route = useRoute();
         async function getProfile() {
             try {
-                let profileId = route.params.profileId
-                await profilesService.getProfile(profileId)
-                await profilesService.getProfilePosts(profileId)
-            } catch (error) {
-                Pop.error(error, '[getting profile]')
+                let profileId = route.params.profileId;
+                await profilesService.getProfile(profileId);
+                await profilesService.getProfilePosts(profileId);
+            }
+            catch (error) {
+                Pop.error(error, "[getting profile]");
             }
         }
-
         onMounted(() => {
-            getProfile()
-        })
+            getProfile();
+        });
         return {
             profile: computed(() => AppState.profile),
             account: computed(() => AppState.account),
             posts: computed(() => AppState.posts),
             page: computed(() => AppState.page),
-
             async getNewPage(pageUrl) {
                 try {
-                    await postsService.getNewPage(pageUrl)
-                } catch (error) {
-                    Pop.error(error, '[getting new page]')
+                    await postsService.getNewPage(pageUrl);
+                }
+                catch (error) {
+                    Pop.error(error, "[getting new page]");
                 }
             }
-        }
-    }
+        };
+    },
+    components: { Modal, EditForm }
 }
 </script>
 
