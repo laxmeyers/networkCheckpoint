@@ -5,7 +5,7 @@
   <div class="row my-4" v-for="post in posts">
     <Posts :post="post" />
   </div>
-  <div class="sticky-bottom my-3 d-flex justify-content-between" v-if="page">
+  <div class="sticky-bottom my-3 d-flex justify-content-between" v-if="page && !home">
     <button class="btn btn-primary" :disabled="!page.newer" @click="getNewPage(page.newer)">newer</button>
     <button class="btn btn-primary" :disabled="!page.older" @click="getNewPage(page.older)">older</button>
   </div>
