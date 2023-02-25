@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+        <img alt="logo" src="https://logopond.com/logos/7cccff545e71c78aa1f26865c1c574ee.png" height="45" />
       </div>
     </router-link>
     <button
@@ -16,12 +16,7 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          
-        </li>
-      </ul>
+    <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarText">
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>
