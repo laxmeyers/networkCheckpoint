@@ -6,9 +6,6 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-6 m-auto">
-          <div class="d-flex justify-content-center">
-            <SearchForm/>
-          </div>
           <router-view />
         </div>
         <div class="col-3">
